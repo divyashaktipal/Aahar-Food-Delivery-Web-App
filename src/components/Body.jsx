@@ -3,7 +3,6 @@ import resList from "../utils/mockData";
 import { useState, useEffect } from "react";
 
 const Body = () => {
-
   // Normal Js Variable
   //   let listOfRestaurantsJs = [
   //   {
@@ -62,12 +61,11 @@ const Body = () => {
   //   },
   // ];
 
-
   // Local State Variable - super powerful react variable
   // used to create a local state variable,used to remember things
   // used to create variables which are dynamic in nature and
   // most importantly used to update the UI (upon state variable change, react triggers a reconciliation cycle)
- 
+
   // let [listOfRestaurants, setListOfRestaurants] = useState([
   //   {
   //     data: {
@@ -131,12 +129,26 @@ const Body = () => {
   //   },
   // ]);
 
-  
   // State variable to manage the list of restaurants.
   // It is kind of destructuring array
   // listOfRestaurants - variable which holds the data
   // setListOfRestaurants - function which is used to update the variable
   const [listOfRestaurants, setListOfRestaurants] = useState(resList);
+
+  // useEffect
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    const data = await fetch(
+      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=24.5524704&lng=73.7404306&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+    );
+
+    const json = await data.json();
+    console.log(json);
+  };
+
 
   return (
     <div className="body">
