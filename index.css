@@ -71,3 +71,8 @@
     height: 100px;
     width: 210px;
 }
+
+.filter-btn{
+    margin: 10px;
+    cursor: pointer;
+}
