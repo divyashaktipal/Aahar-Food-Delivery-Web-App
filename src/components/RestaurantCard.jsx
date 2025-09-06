@@ -7,7 +7,7 @@ const RestaurantCard = (props) => {
   const { resData } = props;
 
   const { cloudinaryImageId, name, cuisines, avgRating, costForTwo } =
-    resData.card.card.info;
+    resData.data;
 
   return (
     <div className="res-card" style={styleCard}>
@@ -16,7 +16,7 @@ const RestaurantCard = (props) => {
         alt="res-logo"
         src={CDN_URL + cloudinaryImageId}
       />
-      {/* <h4>{resData.card.card.info.name} */}
+      {/* <h4>{resData.data.name} */}
       {/* or  */}
       <h4>{name}</h4>
       <p>{cuisines.join(", ")}</p>
