@@ -1,24 +1,38 @@
 import RestaurantCard from "./RestaurantCard";
 import resList from "../utils/mockData";
 import { useState, useEffect } from "react";
+import ShimmerUI from "./ShimmerUI";
 
 const Body = () => {
-  
   // useState hook to create a state variable
   const [listOfRestaurants, setListOfRestaurants] = useState(resList);
 
-  // useEffect      
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // useEffect
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
 
-  const fetchData = async () => {
-    const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=24.5524704&lng=73.7404306&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-    );
-    const json = await data.json();
-    // console.log("success!");
-    console.log(json);
+  // const fetchData = async () => {
+  //   const data = await fetch(
+  //     "https://www.swiggy.com/dapi/restaurants/list/v5?lat=24.5524704&lng=73.7404306&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+  //   );
+
+  //   const json = await data.json();
+  //   console.log(json);
+
+  //   Optional Chaining
+  //   setListOfRestaurants(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+  // };
+
+
+  // spinner/Loading UI
+  // if(listOfRestaurants.length === 0){
+  //   return <h1>Loading....</h1>
+  // } 
+
+  // shimmer ui (conditional rendering)
+  if(listOfRestaurants.length === 0){
+    return <ShimmerUI />
   }
 
   return (
