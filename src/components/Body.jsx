@@ -37,7 +37,7 @@ const Body = () => {
   }
 
   const fetchData = async () => {
-    const json = await data.json();
+    // const json = await data.json();
     setFilteredRest(json.data);
   };
 
