@@ -1,8 +1,9 @@
 import ReactDOM from "react-dom/client";
 import { Header } from "./components/Header";
 import Body from "./components/Body";
-
-
+import { createBrowserRouter, RouterProvider } from "react-router";
+import About from "./components/About";
+import NotFoundPage from "./components/NotFoundPage";
 
 /**
  * Header
@@ -32,5 +33,22 @@ const AppLayout = () => {
   );
 };
 
+const appRouter = createBrowserRouter([
+  {
+    path: "/",
+    element: <AppLayout />,
+    errorElement: <NotFoundPage />,
+  },
+  {
+    path: "/about",
+    element: <About />,
+    errorElement: <NotFoundPage />,
+  },
+  {
+    path: "/contact",
+    element: <h1>Contact Us</h1>,
+    errorElement: <NotFoundPage />,
+  },
+]);
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<AppLayout />);
+root.render(<RouterProvider router={appRouter} />);
