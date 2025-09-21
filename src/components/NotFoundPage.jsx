@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import { useRouteError } from "react-router-dom";
 
 const NotFoundPage = () => {
+  const err = useRouteError();
+  console.log(err);
   return (
     <div className="NotFoundPage">
       <center>

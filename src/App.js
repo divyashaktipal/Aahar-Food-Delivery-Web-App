@@ -1,9 +1,10 @@
 import ReactDOM from "react-dom/client";
 import { Header } from "./components/Header";
 import Body from "./components/Body";
-import { createBrowserRouter, RouterProvider } from "react-router";
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router";
 import About from "./components/About";
 import NotFoundPage from "./components/NotFoundPage";
+import Contact from "./components/Contact";
 
 /**
  * Header
@@ -28,7 +29,7 @@ const AppLayout = () => {
   return (
     <div className="app">
       <Header />
-      <Body />
+      <Outlet />
     </div>
   );
 };
@@ -37,16 +38,25 @@ const appRouter = createBrowserRouter([
   {
     path: "/",
     element: <AppLayout />,
-    errorElement: <NotFoundPage />,
-  },
-  {
-    path: "/about",
-    element: <About />,
-    errorElement: <NotFoundPage />,
-  },
-  {
-    path: "/contact",
-    element: <h1>Contact Us</h1>,
+    children: [
+      {
+        path: "/",
+        element: <Body />,
+      },
+      {
+        path: "/about",
+        element: <About />,
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
+      },
+      {
+        path: "/contact2",
+        element: <h1>Contact Us</h1>,
+        errorElement: <NotFoundPage />,
+      },
+    ],
     errorElement: <NotFoundPage />,
   },
 ]);
