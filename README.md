@@ -1,14 +1,13 @@
 ---
-# Episode 5 
+# Episode 5
 Two type of export and import:
-1. default export/import: 
-    ex:   export default Component;
-            import Component from "path"
+1. default export/import:
+  ex: export default Component;
+    import Component from "path"
 
-2. Named export/import
-    Ex:   export const Component
-            import {Component} from "path"
-
+2. Named export/import:
+  Ex: export const Component
+    import {Component} from "path"
 ---
 
 # Episode 6
@@ -43,5 +42,12 @@ In this, 'RouterProvider' component provide the routing configuration to app.
 
 ## 2 types of routing in web apps
 
-    - Client Side Routing
-    - Server Side Routing
+    - Client Side Routing : Basically all the required componenet are already present in the  client's folder. It's just call/render it on webpage. Means doesn't call any kind of API. For Ex: when we click on 'contactUs' button, it just rerender the component, which is already written.
+
+    - Server Side Routing: In server-side routing, every time a user navigates to a new URL:
+        The browser sends a request to the server.
+        The server processes the request and returns a new HTML page.
+        The entire page reloads with new content.
+        Ex: If you visit example.com/about, the server receives that request and sends back the about.html page.
+
+    
