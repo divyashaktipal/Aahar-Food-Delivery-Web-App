@@ -5,10 +5,16 @@ import ShimmerUI from "./ShimmerUI";
 
 const RestaurantsMenu = () => {
   const [resInfo, setResInfo] = useState(null);
+  const [showDosa, setShowDosa] = useState(false);
+  const [showRice, setShowRice] = useState(false);
 
   useEffect(() => {
     fetchMenu();
   }, []);
+
+  const toggleMinimize = () => {
+    setIsMinimized(!isMinimized);
+  };
 
   const fetchMenu = async () => {
     const data = await fetch(
@@ -16,7 +22,7 @@ const RestaurantsMenu = () => {
     );
     const json = await data.json();
 
-    console.log(json);
+    // console.log(json);
     setResInfo(json.data);
   };
 
@@ -41,9 +47,14 @@ const RestaurantsMenu = () => {
     totalRatingsString,
   } = resInfo?.cards[2]?.card?.card?.info;
 
-  const {DosaItemCards} = resInfo?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card?.itemCards[0]?.card?.info;
-  const {riceCounterCards} = resInfo?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card?.itemCards;
-  // Ternary operator
+  const DosaItemCards =
+    resInfo?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card
+      ?.itemCards;
+  // console.log(DosaItemCards);
+  const riceCounterCards =
+    resInfo?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards[3]?.card?.card
+      ?.itemCards;
+
   return (
     <div className="menu">
       <h1>{name}</h1>
@@ -71,7 +82,8 @@ const RestaurantsMenu = () => {
               <h3> • Outlet: {areaName}</h3>
             </span>
             <span>
-              <h3>• Time: 
+              <h3>
+                • Time:
                 {/* separate the values with a string or JSX element:
                     Option 1: Template Literal (Recommended) */}
                 {`${resInfo?.cards[2]?.card?.card?.info?.sla?.minDeliveryTime} - ${resInfo?.cards[2]?.card?.card?.info?.sla?.maxDeliveryTime} mins`}
@@ -82,6 +94,74 @@ const RestaurantsMenu = () => {
           </div>
         </div>
       </div>
+
+      {/*You can use this to check, if you don't understand the map().  */}
+      {/* <h3>{DosaItemCards[0]?.card?.info?.name}</h3>
+      <h3>{DosaItemCards[1]?.card?.info?.name}</h3> */}
+
+      {/* Map() to showcase dosa item */}
+
+      {/* Dosa Counter */}
+      <div className="categoryHeader" onClick={() => setShowDosa(!showDosa)}>
+        <h3>Dosa Counter {showDosa ? "▲" : "▼"}</h3>
+      </div>
+      {showDosa && (
+        <div className="dosaCounter">
+          {DosaItemCards?.map((dosaItem, id) => {
+            const name = dosaItem?.card?.info?.name;
+            const descript = dosaItem?.card?.info?.description;
+            const price = dosaItem?.card?.info?.price;
+            const { rating, ratingCountV2 } =
+              dosaItem?.card?.info?.ratings?.aggregatedRating || {};
+
+            return (
+              <div key={id} className="dosaItems">
+                <div className="normalDosaFlex">
+                  <div className="dosaName">
+                    <h4>{name}</h4>
+                  </div>
+                  <div className="dosaPrice">
+                    <strong>₹{price / 100}</strong>
+                  </div>
+                  <div className="dosaRatings">
+                    <p>
+                      {rating} ({ratingCountV2}+ ratings)
+                    </p>
+                  </div>
+                  <p>{descript}</p>
+                  <hr />
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Rice Counter */}
+      <div className="categoryHeader" onClick={() => setShowRice(!showRice)}>
+        <h3>Rice Counter {showRice ? "▲" : "▼"}</h3>
+      </div>
+      {showRice && (
+        <div className="riceCounter">
+          {riceCounterCards?.map((item, id) => {
+            const { name, description, price } = item?.card?.info || {};
+            return (
+              <div key={id} className="riceItems">
+                <div className="normalDosaFlex">
+                  <div className="dosaName">
+                    <h4>{name}</h4>
+                  </div>
+                  <div className="dosaPrice">
+                    <strong>₹{price / 100}</strong>
+                  </div>
+                  <p>{description}</p>
+                  <hr />
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 };

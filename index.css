@@ -177,3 +177,135 @@
 .resOutTime{
     margin-left: 50px;
 }
+
+/* Container for all dosa items */
+.dosaCounter {
+  padding: 20px;
+  background-color: #fffdf7;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Individual dosa item block */
+.dosaItems {
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+/* Flex layout for name, price, and rating */
+.normalDosaFlex {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Dosa name styling */
+.dosaName h4 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+/* Price styling */
+.dosaPrice strong {
+  font-size: 1rem;
+  color: #007e00;
+}
+
+/* Ratings styling */
+.dosaRatings p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* Description styling */
+.normalDosaFlex p {
+  margin: 4px 0;
+  font-size: 0.95rem;
+  color: #666;
+}
+
+/* Divider line */
+.normalDosaFlex hr {
+  margin-top: 10px;
+  border: none;
+  border-top: 1px dashed #ccc;
+}
+
+.categoryHeader {
+  cursor: pointer;
+  background-color: #f0f0f0;
+  padding: 10px;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+.riceItem {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.categoryHeader {
+  cursor: pointer;
+  background-color: #f7f7f7;
+  padding: 12px 16px;
+  margin-top: 20px;
+  border-radius: 6px;
+  font-weight: bold;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.categoryHeader:hover {
+  background-color: #eaeaea;
+}
+
+.dosaCounter,
+.riceCounter {
+  padding: 16px;
+  background-color: #fff;
+  border-radius: 6px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+}
+
+.dosaItems,
+.riceItems {
+  margin-bottom: 16px;
+}
+
+.normalDosaFlex {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dosaName h4 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.dosaPrice strong {
+  font-size: 1rem;
+  color: #007e00;
+}
+
+.dosaRatings p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.normalDosaFlex p {
+  margin: 4px 0;
+  font-size: 0.95rem;
+  color: #666;
+}
+
+.normalDosaFlex hr {
+  margin-top: 10px;
+  border: none;
+  border-top: 1px dashed #ccc;
+}
