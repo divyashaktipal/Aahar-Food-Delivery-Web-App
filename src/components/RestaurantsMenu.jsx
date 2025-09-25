@@ -2,26 +2,24 @@ import { useState, useEffect } from "react";
 import React from "react";
 import ReactDOM from "react-dom";
 import ShimmerUI from "./ShimmerUI";
+import { useParams } from "react-router-dom";
+import { MENU_API } from "../utils/constant";
 
 const RestaurantsMenu = () => {
   const [resInfo, setResInfo] = useState(null);
   const [showDosa, setShowDosa] = useState(false);
   const [showRice, setShowRice] = useState(false);
+  const [showIdliVada, setShowIdliVada] = useState(false);
+
+  const { restaurantId } = useParams();
 
   useEffect(() => {
     fetchMenu();
   }, []);
 
-  const toggleMinimize = () => {
-    setIsMinimized(!isMinimized);
-  };
-
   const fetchMenu = async () => {
-    const data = await fetch(
-      "https://www.swiggy.com/mapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=13.0035068&lng=77.5890953&restaurantId=226983&query=South%20Indian&submitAction=ENTER&source=collection"
-    );
+    const data = await fetch(MENU_API + restaurantId);
     const json = await data.json();
-
     // console.log(json);
     setResInfo(json.data);
   };
@@ -38,6 +36,7 @@ const RestaurantsMenu = () => {
   // If resInfo is null or cards[2] is missing, then:
   // This is exactly the error you saw in DevTools:
   // TypeError: Cannot destructure property 'cuisines' of '(intermediate value)' as it is undefined.
+
   const {
     cuisines,
     avgRating,
@@ -45,7 +44,7 @@ const RestaurantsMenu = () => {
     areaName,
     name,
     totalRatingsString,
-  } = resInfo?.cards[2]?.card?.card?.info;
+  } = resInfo?.cards[2]?.card?.card?.info || {};
 
   const DosaItemCards =
     resInfo?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card
@@ -54,6 +53,13 @@ const RestaurantsMenu = () => {
   const riceCounterCards =
     resInfo?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards[3]?.card?.card
       ?.itemCards;
+
+  const titles1 =
+    resInfo?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards[3]?.card?.card;
+  const titles2 =
+    resInfo?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards[4]?.card?.card;
+  const titles3 =
+    resInfo?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards[5]?.card?.card;
 
   return (
     <div className="menu">
@@ -89,6 +95,7 @@ const RestaurantsMenu = () => {
                 {`${resInfo?.cards[2]?.card?.card?.info?.sla?.minDeliveryTime} - ${resInfo?.cards[2]?.card?.card?.info?.sla?.maxDeliveryTime} mins`}
                 {/* Option 2: Concatenation */}
                 {/* <h3>{resInfo?.cards[2]?.card?.card?.info?.sla?.minDeliveryTime + " - " + resInfo?.cards[2]?.card?.card?.info?.sla?.maxDeliveryTime + " mins"}</h3>*/}
+                {/* {sla.minDeliveryTime} - {sla.maxDeliveryTime} mins */}
               </h3>
             </span>
           </div>
@@ -100,17 +107,21 @@ const RestaurantsMenu = () => {
       <h3>{DosaItemCards[1]?.card?.info?.name}</h3> */}
 
       {/* Map() to showcase dosa item */}
-
+      <center>
+        <h3 className="menu">-: MENU :-</h3>
+      </center>
       {/* Dosa Counter */}
       <div className="categoryHeader" onClick={() => setShowDosa(!showDosa)}>
-        <h3>Dosa Counter {showDosa ? "▲" : "▼"}</h3>
+        <h3>
+          {titles1?.title}({titles1?.itemCards?.length}) {showDosa ? "▲" : "▼"}
+        </h3>
       </div>
+
       {showDosa && (
         <div className="dosaCounter">
           {DosaItemCards?.map((dosaItem, id) => {
             const name = dosaItem?.card?.info?.name;
-            const descript = dosaItem?.card?.info?.description;
-            const price = dosaItem?.card?.info?.price;
+            const { description, price } = dosaItem?.card?.info || {};
             const { rating, ratingCountV2 } =
               dosaItem?.card?.info?.ratings?.aggregatedRating || {};
 
@@ -128,7 +139,7 @@ const RestaurantsMenu = () => {
                       {rating} ({ratingCountV2}+ ratings)
                     </p>
                   </div>
-                  <p>{descript}</p>
+                  <p>{description}</p>
                   <hr />
                 </div>
               </div>
@@ -139,7 +150,9 @@ const RestaurantsMenu = () => {
 
       {/* Rice Counter */}
       <div className="categoryHeader" onClick={() => setShowRice(!showRice)}>
-        <h3>Rice Counter {showRice ? "▲" : "▼"}</h3>
+        <h3>
+          {titles2?.title} ({titles2?.itemCards?.length}) {showRice ? "▲" : "▼"}
+        </h3>
       </div>
       {showRice && (
         <div className="riceCounter">
@@ -162,6 +175,16 @@ const RestaurantsMenu = () => {
           })}
         </div>
       )}
+
+      <div
+        className="categoryHeader"
+        onClick={() => setShowIdliVada(!showIdliVada)}
+      >
+        <h3>
+          {titles3?.title} {showIdliVada ? "▲" : "▼"}
+        </h3>
+      </div>
+      {showIdliVada && <div className="IdliVadaCounter"></div>}
     </div>
   );
 };

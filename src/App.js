@@ -58,7 +58,7 @@ const appRouter = createBrowserRouter([
         errorElement: <NotFoundPage />,
       },
       {
-        path: "/restaurants/:id",
+        path: "/restaurants/:restaurantId",
         element: <RestaurantsMenu />,
         errorElement: <NotFoundPage />,
       },
