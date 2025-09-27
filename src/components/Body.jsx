@@ -1,30 +1,34 @@
 import RestaurantCard from "./RestaurantCard";
 import { useState, useEffect } from "react";
 import ShimmerUI from "./ShimmerUI";
-import resList from "../utils/mockData";
+// import resList from "../utils/mockData";
+import { RESTRA_API } from "../utils/constant";
+import { Link } from "react-router";
 
 const Body = () => {
   // useState hook to create a state variable
-  const [listOfRestaurants, setListOfRestaurants] = useState(resList);
+  const [listOfRestaurants, setListOfRestaurants] = useState([]);
   const [filteredRest, setFilteredRest] = useState([]);
   const [searchText, setSearchText] = useState("");
 
   // useEffect
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    fetchData();
+  }, []);
 
-  // const fetchData = async () => {
-  //   const data = await fetch(
-  //     "https://www.swiggy.com/dapi/restaurants/list/v5?lat=13.0035068&lng=77.5890953&collection=83633&tags=layout_CCS_NorthIndian&sortBy=&filters=&type=rcv2&offset=0&page_type=null"
-  //   );
+  const fetchData = async () => {
+    const data = await fetch(RESTRA_API);
 
-  //   const json = await data.json();
-  //   console.log(json);
+    const json = await data.json();
+    console.log(json);
 
-  //   Optional Chaining
-  //   setListOfRestaurants(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
-  // };
+    // Filter only restaurant cards
+    const restaurantCards = json?.data?.cards?.filter(
+      (card) => card?.card?.card?.info
+    );
+
+    setListOfRestaurants(restaurantCards);
+  };
 
   // spinner/Loading UI
   // if(listOfRestaurants.length === 0){
@@ -35,11 +39,6 @@ const Body = () => {
   if (listOfRestaurants.length === 0) {
     return <ShimmerUI />;
   }
-
-  const fetchData = async () => {
-    // const json = await data.json();
-    setFilteredRest(json.data);
-  };
 
   return (
     <div className="body">
@@ -63,8 +62,11 @@ const Body = () => {
               console.log(searchText);
 
               const filteredRest = listOfRestaurants.filter((res) =>
-                res.data.name.toLowerCase().includes(searchText.toLowerCase())
+                res?.card?.card?.info?.name
+                  ?.toLowerCase()
+                  .includes(searchText.toLowerCase())
               );
+
               setFilteredRest(filteredRest);
             }}
           >
@@ -75,8 +77,9 @@ const Body = () => {
             className="filter-btn"
             onClick={() => {
               const filteredList = listOfRestaurants.filter(
-                (res) => parseFloat(res.data.avgRating) > 4
+                (res) => parseFloat(res?.card?.card?.info?.avgRating) > 4.2
               );
+
               setListOfRestaurants(filteredList);
             }}
           >
@@ -87,7 +90,12 @@ const Body = () => {
         <div className="res-container">
           {(filteredRest.length > 0 ? filteredRest : listOfRestaurants).map(
             (restaurant) => (
-              <RestaurantCard key={restaurant.data.id} resData={restaurant} />
+              <Link
+                key={restaurant.card.card.info.id}
+                to={"/restaurants/" + restaurant.card.card.info.id}
+              >
+                <RestaurantCard resData={restaurant} />
+              </Link>
             )
           )}
         </div>

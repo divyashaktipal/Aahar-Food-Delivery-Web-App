@@ -1,5 +1,5 @@
 .root{
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Gilroy,arial,Helvetica Neue,sans-serif;
 }
 
 .header{
@@ -134,13 +134,24 @@
     align-items: center;
 }
 
+.app{
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
 .menu{
     background-image: (var(--darkreader-background-ffffff, #181a1b) -6.71%, var(--darkreader-background-ebebf2, #212425) 56.19%, var(--darkreader-background-dfdfe7, #282b2d) 106.56%);
 }
 
+.restraName{
+  padding-left: 20px;
+  margin-bottom: 30px;
+  margin-top: 55px;
+}
+
 .resMenuInfo{
     background: linear-gradient(rgb(255, 255, 255) -6.71%, rgb(235, 235, 242) 56.19%, rgb(223, 223, 231) 106.56%);
-    padding: 0px 16px 16px;
+    padding: 0px 16px 18px;
     border-bottom-left-radius: 36px;
     border-bottom-right-radius: 36px;
 }
@@ -151,27 +162,27 @@
     background: white;
 }
 
-.resSpace{
-    margin-bottom: 30px;
+
+.resRating,
+.resCuisines {
+  display: flex;
+  align-items: center;
+  margin-left: 16px;
 }
 
-.resRating{
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    margin: 0px 16px;
+.resRating {
+  /* padding-bottom: 5px; */
+  margin-bottom: 0px;
+}
 
+.resCuisines {
+  padding-top: 0px;
+  margin: 8px 16px;
+  color: #e59f7e;
 }
 
 .separator{
     margin: 0 8px;
-}
-
-.resCuisines{
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    margin: 0px 20px;
 }
 
 .resOutTime{
@@ -179,7 +190,7 @@
 }
 
 /* Container for all dosa items */
-.dosaCounter {
+.Counter1 {
   padding: 20px;
   background-color: #fffdf7;
   border-radius: 8px;
@@ -262,7 +273,7 @@
   background-color: #eaeaea;
 }
 
-.dosaCounter,
+.Counter1,
 .riceCounter {
   padding: 16px;
   background-color: #fff;
@@ -309,3 +320,4 @@
   border: none;
   border-top: 1px dashed #ccc;
 }
+

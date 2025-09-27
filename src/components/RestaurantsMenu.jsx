@@ -7,9 +7,9 @@ import { MENU_API } from "../utils/constant";
 
 const RestaurantsMenu = () => {
   const [resInfo, setResInfo] = useState(null);
-  const [showDosa, setShowDosa] = useState(false);
-  const [showRice, setShowRice] = useState(false);
-  const [showIdliVada, setShowIdliVada] = useState(false);
+  const [showCounter1, setshowCounter1] = useState(false);
+  const [showCounter2, setshowCounter2] = useState(false);
+  const [showCounter3, setShowCounter3] = useState(false);
 
   const { restaurantId } = useParams();
 
@@ -62,129 +62,142 @@ const RestaurantsMenu = () => {
     resInfo?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards[5]?.card?.card;
 
   return (
-    <div className="menu">
-      <h1>{name}</h1>
-      <div className="resMenuInfo">
-        <div className="resDes1">
-          <div className="resSpace"></div>
-          <div className="resRating">
-            <span>
-              <h3>
-                {avgRating}({totalRatingsString})
-              </h3>
-            </span>
-            <span className="separator">
-              <h3>•</h3>
-            </span>
-            <span>
-              <h3>{costForTwoMessage}</h3>
-            </span>
-          </div>
-          <div className="resCuisines">
-            <h3>{cuisines.join(",")}</h3>
-          </div>
-          <div className="resOutTime">
-            <span className="resAddress">
-              <h3> • Outlet: {areaName}</h3>
-            </span>
-            <span>
-              <h3>
-                • Time:
-                {/* separate the values with a string or JSX element:
+    <div className="app">
+      <div className="menu">
+        <h3 className="restraName">{name}</h3>
+        <div className="resMenuInfo">
+          <div className="resDes1">
+            <div className="resSpace"></div>
+            <div className="resRating">
+              <strong>
+                <p>
+                  {avgRating}({totalRatingsString})
+                </p>
+              </strong>
+              <span className="separator">
+                <p>•</p>
+              </span>
+              <strong>
+                <p>{costForTwoMessage}</p>
+              </strong>
+            </div>
+
+            <div className="resCuisines">
+              <p>{cuisines.join(", ")}</p>
+            </div>
+            <div className="resOutTime">
+              <span className="resAddress">
+                <h4> • Outlet: {areaName}</h4>
+              </span>
+              <span>
+                <h4>
+                  • Time:
+                  {/* separate the values with a string or JSX element:
                     Option 1: Template Literal (Recommended) */}
-                {`${resInfo?.cards[2]?.card?.card?.info?.sla?.minDeliveryTime} - ${resInfo?.cards[2]?.card?.card?.info?.sla?.maxDeliveryTime} mins`}
-                {/* Option 2: Concatenation */}
-                {/* <h3>{resInfo?.cards[2]?.card?.card?.info?.sla?.minDeliveryTime + " - " + resInfo?.cards[2]?.card?.card?.info?.sla?.maxDeliveryTime + " mins"}</h3>*/}
-                {/* {sla.minDeliveryTime} - {sla.maxDeliveryTime} mins */}
-              </h3>
-            </span>
+                  {`${resInfo?.cards[2]?.card?.card?.info?.sla?.minDeliveryTime} - ${resInfo?.cards[2]?.card?.card?.info?.sla?.maxDeliveryTime} mins`}
+                  {/* Option 2: Concatenation */}
+                  {/* <h3>{resInfo?.cards[2]?.card?.card?.info?.sla?.minDeliveryTime + " - " + resInfo?.cards[2]?.card?.card?.info?.sla?.maxDeliveryTime + " mins"}</h3>*/}
+                  {/* {sla.minDeliveryTime} - {sla.maxDeliveryTime} mins */}
+                </h4>
+              </span>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/*You can use this to check, if you don't understand the map().  */}
-      {/* <h3>{DosaItemCards[0]?.card?.info?.name}</h3>
+        {/*You can use this to check, if you don't understand the map().  */}
+        {/* <h3>{DosaItemCards[0]?.card?.info?.name}</h3>
       <h3>{DosaItemCards[1]?.card?.info?.name}</h3> */}
 
-      {/* Map() to showcase dosa item */}
-      <center>
-        <h3 className="menu">-: MENU :-</h3>
-      </center>
-      {/* Dosa Counter */}
-      <div className="categoryHeader" onClick={() => setShowDosa(!showDosa)}>
-        <h3>
-          {titles1?.title}({titles1?.itemCards?.length}) {showDosa ? "▲" : "▼"}
-        </h3>
-      </div>
+        {/* Map() to showcase dosa item */}
+        <center>
+          <h3 className="menu">-: MENU :-</h3>
+        </center>
 
-      {showDosa && (
-        <div className="dosaCounter">
-          {DosaItemCards?.map((dosaItem, id) => {
-            const name = dosaItem?.card?.info?.name;
-            const { description, price } = dosaItem?.card?.info || {};
-            const { rating, ratingCountV2 } =
-              dosaItem?.card?.info?.ratings?.aggregatedRating || {};
-
-            return (
-              <div key={id} className="dosaItems">
-                <div className="normalDosaFlex">
-                  <div className="dosaName">
-                    <h4>{name}</h4>
-                  </div>
-                  <div className="dosaPrice">
-                    <strong>₹{price / 100}</strong>
-                  </div>
-                  <div className="dosaRatings">
-                    <p>
-                      {rating} ({ratingCountV2}+ ratings)
-                    </p>
-                  </div>
-                  <p>{description}</p>
-                  <hr />
-                </div>
-              </div>
-            );
-          })}
+        {/* Counter 1*/}
+        <div
+          className="categoryHeader"
+          onClick={() => setshowCounter1(!showCounter1)}
+        >
+          <h3>
+            {titles1?.title}({titles1?.itemCards?.length}){" "}
+            {showCounter1 ? "▲" : "▼"}
+          </h3>
         </div>
-      )}
 
-      {/* Rice Counter */}
-      <div className="categoryHeader" onClick={() => setShowRice(!showRice)}>
-        <h3>
-          {titles2?.title} ({titles2?.itemCards?.length}) {showRice ? "▲" : "▼"}
-        </h3>
-      </div>
-      {showRice && (
-        <div className="riceCounter">
-          {riceCounterCards?.map((item, id) => {
-            const { name, description, price } = item?.card?.info || {};
-            return (
-              <div key={id} className="riceItems">
-                <div className="normalDosaFlex">
-                  <div className="dosaName">
-                    <h4>{name}</h4>
+        {showCounter1 && (
+          <div className="Counter1">
+            {DosaItemCards?.map((dosaItem, id) => {
+              const name = dosaItem?.card?.info?.name;
+              const { description, price } = dosaItem?.card?.info || {};
+              const { rating, ratingCountV2 } =
+                dosaItem?.card?.info?.ratings?.aggregatedRating || {};
+
+              return (
+                <div key={id} className="dosaItems">
+                  <div className="normalDosaFlex">
+                    <div className="dosaName">
+                      <h4>{name}</h4>
+                    </div>
+                    <div className="dosaPrice">
+                      <strong>₹{price / 100}</strong>
+                    </div>
+                    <div className="dosaRatings">
+                      <p>
+                        {rating} ({ratingCountV2}+ ratings)
+                      </p>
+                    </div>
+                    <p>{description}</p>
+                    <hr />
                   </div>
-                  <div className="dosaPrice">
-                    <strong>₹{price / 100}</strong>
-                  </div>
-                  <p>{description}</p>
-                  <hr />
                 </div>
-              </div>
-            );
-          })}
-        </div>
-      )}
+              );
+            })}
+          </div>
+        )}
 
-      <div
-        className="categoryHeader"
-        onClick={() => setShowIdliVada(!showIdliVada)}
-      >
-        <h3>
-          {titles3?.title} {showIdliVada ? "▲" : "▼"}
-        </h3>
+        {/* Rice Counter */}
+        <div
+          className="categoryHeader"
+          onClick={() => setshowCounter2(!showCounter2)}
+        >
+          <h3>
+            {titles2?.title} ({titles2?.itemCards?.length}){" "}
+            {showCounter2 ? "▲" : "▼"}
+          </h3>
+        </div>
+        {showCounter2 && (
+          <div className="riceCounter">
+            {riceCounterCards?.map((item, id) => {
+              const { name, description, price } = item?.card?.info || {};
+              return (
+                <div key={id} className="riceItems">
+                  <div className="normalDosaFlex">
+                    <div className="dosaName">
+                      <h4>{name}</h4>
+                    </div>
+                    <div className="dosaPrice">
+                      <strong>₹{price / 100}</strong>
+                    </div>
+                    <p>{description}</p>
+                    <hr />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+
+        {/* Counter 3 */}
+        <div
+          className="categoryHeader"
+          onClick={() => setShowCounter3(!showCounter3)}
+        >
+          <h3>
+            {titles3?.title} {showCounter3 ? "▲" : "▼"}
+          </h3>
+        </div>
+        {showCounter3 && <div className="IdliVadaCounter"></div>}
       </div>
-      {showIdliVada && <div className="IdliVadaCounter"></div>}
     </div>
   );
 };
