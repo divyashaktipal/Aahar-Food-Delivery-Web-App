@@ -118,7 +118,7 @@ const RestaurantsMenu = () => {
           className="categoryHeader"
           onClick={() => setshowCounter1(!showCounter1)}
         >
-          <h3>
+          <h3 className="icon-space">
             {titles1?.title}({titles1?.itemCards?.length}){" "}
             {showCounter1 ? "▲" : "▼"}
           </h3>
@@ -160,7 +160,7 @@ const RestaurantsMenu = () => {
           className="categoryHeader"
           onClick={() => setshowCounter2(!showCounter2)}
         >
-          <h3>
+          <h3 className="icon-space">
             {titles2?.title} ({titles2?.itemCards?.length}){" "}
             {showCounter2 ? "▲" : "▼"}
           </h3>

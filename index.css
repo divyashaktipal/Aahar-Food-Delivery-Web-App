@@ -47,6 +47,8 @@
 .res-card{
     box-shadow: 1px 1px 2px grey;
     width: 210px;
+    color: black;
+
 }
 
 .res-container{
@@ -196,6 +198,10 @@
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
+
+/* .icon-space{
+  justify-content: space-between;
+} */
 
 /* Individual dosa item block */
 .dosaItems {
