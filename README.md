@@ -50,4 +50,23 @@ In this, 'RouterProvider' component provide the routing configuration to app.
         The entire page reloads with new content.
         Ex: If you visit example.com/about, the server receives that request and sends back the about.html page.
 
-    
+# Episode 8
+
+Class Component Vs Functional Component
+
+Class Component:
+
+- if i want to use prop in class component then we've to use constructor and super().
+- If you write super(props), the props are passed to the parent constructor.
+  This makes 'this.props' available inside your component’s constructor. Without it, this.props would be undefined in the constructor, even though React still passes props later.
+- Never update the state variable directly in class component.
+- For example, I'm calling the class component under the aboutUs page and the first thing happened is, it create an instance of class component and when it goes to that component then it call the 'constructor' first and then render called.
+- In class component, Firstly constructor will be called/rendered, secondly render will be called and then componentDidMount will be called.
+
+  ComponentDidMount(): It is used to call an API,
+
+Functional Component:
+
+-
+
+--> React has two phases, which makes react faster: (i.) Render Phase and (ii.) Commit Phase

@@ -1,4 +1,6 @@
-const User = ({name}) => {
+// Functional Component
+// destructure on fly
+const User = ({ name }) => {
   return (
     <div className="user-Card">
       <div className="userName">Name: {name}</div>
